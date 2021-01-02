@@ -1,6 +1,37 @@
+#container{
+    background-color: rgb(80, 80, 80);
+    height:500px;
+    border-top:45px solid rgb(255, 196, 0);
+}
 h1 {
     text-align: center;
-    font-size: large;
-    color: orange;
-    font-family: cursive;
+    font-size:300%;
+    color: rgb(255, 196, 0);
+    text-decoration: underline;
+    font-family:fantasy;
+}
+h2{
+    text-align: center;
+    font-size: 150%;
+    color: rgb(255, 196, 0);
+}
+#searchBarDiv{
+    text-align: center;
+}
+#searchBarDiv input{
+width: 70%;
+padding:1% 0% 1% 0%;
+}
+#searchBarDiv button{    
+    padding:1%;
+    background-color: rgb(255, 196, 0);
+}
+#movieListDiv ul{
+    column-count: 3;
+}
+.listItem {
+    padding: 30px 15px ;
+    text-align: center;
+    border: 5px solid rgb(255, 196, 0);
+    list-style-type: none;
 }
