@@ -1,9 +1,9 @@
 import Movie from "./Movie.js";
-export default class MovieCollection{
-    movies =  new Movie[10];
 
+export default class MovieCollection{
+    
     constructor(){
-    this.movies = movies;
+    this.movies = new Movie[10];
     }
 
     addMovie(movie){
