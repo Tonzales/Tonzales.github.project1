@@ -7,9 +7,11 @@ let movie2 = new Movie("The Dark Knight","13.2.2002","Action",["Christian Bale",
 let movie3 = new Movie("The Dark Knight Rises","13.2.2007","Action",["Christian Bale"],"2h");
 let movieArray = [movie1,movie2,movie3];
 let allMovies = new MovieCollection();
-for(let movie in movieArray){
-    allMovies.addMovie(movieArray[movie]);
+for(let i = 0; i < movieArray.length; i++){
+    allMovies.addMovie(movieArray[i]);
 }
 
-//allMovies.addMovie(movie1);
-console.log(allMovies);
+let container = document.getElementById("container");
+let header = document.createElement("h1");
+header.textContent="Reeler";
+container.appendChild(header);
