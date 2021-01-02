@@ -1,5 +1,5 @@
 
-class MovieCollection{
+export class MovieCollection{
     movies =  new Movie[10];
 
     constructor(){

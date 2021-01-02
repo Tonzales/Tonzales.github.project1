@@ -1,4 +1,4 @@
-class Movie {
+export class Movie {
     constructor(name,releaseDate,genre,actors,length){
         this.name=name;
         this.releaseDate =releaseDate;
