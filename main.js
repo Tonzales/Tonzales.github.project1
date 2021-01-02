@@ -8,7 +8,7 @@ let movie3 = new Movie("The Dark Knight Rises","13.2.2007","Action",["Christian 
 let movieArray = [movie1,movie2,movie3];
 let allMovies = new MovieCollection();
 for(let movie in movieArray){
-    allMovies.addMovie(movie);
+    allMovies.addMovie(movieArray[movie]);
 }
 
 //allMovies.addMovie(movie1);
