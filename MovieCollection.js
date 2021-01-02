@@ -1,8 +1,7 @@
 import Movie from "./Movie.js";
 
-export default class MovieCollection{
-    maxCount = 5;
-    movies =  new Movie[this.maxCount];
+export default class MovieCollection{    
+    movies =  new Movie[10];
 
     constructor(){
     this.movies = movies;
