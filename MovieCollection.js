@@ -2,7 +2,7 @@
 class MovieCollection{
     movies =  new Movie[10];
 
-    constructor(movies){
+    constructor(){
     this.movies = movies;
     }
 
