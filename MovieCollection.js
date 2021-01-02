@@ -1,5 +1,5 @@
 
-export class MovieCollection{
+export default class MovieCollection{
     movies =  new Movie[10];
 
     constructor(){
