@@ -16,6 +16,10 @@ class Movie {
 class MovieCollection{
     movies = [];
 
+    constructor(){
+        this.movies=movies;
+    }
+
     constructor(movies){
     this.movies = movies;
     }
