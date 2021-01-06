@@ -1,58 +1,88 @@
-import  Movie from "./Movie.js";
+import Movie from "./Movie.js";
 import MovieCollection from "./MovieCollection.js";
 
 let container = document.getElementById("container");
 let list = document.getElementById("movieList");
 const searchInput = document.getElementById("searchBar");
 searchInput.addEventListener("input", searchMovie);
+const addMovieButton = document.getElementsByName("addMovieButton");
+addMovieButton[0].addEventListener("click", addMovie);
+const modal = document.getElementById("modal");
+const modalContent = document.getElementById("modal-content");
+const closeModalButton = document.getElementById("closeButton");
+closeModalButton.addEventListener("click",closeModalWindow);
 
-let movie1 = new Movie("Batman","13.2.1999","Action",["Christian Bale","Liam Neeson"],"2h");
-let movie2 = new Movie("The Dark Knight","13.2.2002","Action",["Christian Bale","Heath Ledger"],"2h");
-let movie3 = new Movie("The Dark Knight Rises","13.2.2007","Action",["Christian Bale"],"2h");
-let movie4 = new Movie("The Dark Knight Rises","13.2.2007","Action",["Christian Bale"],"2h");
-let movie5 = new Movie("The Dark Knight Rises","13.2.2007","Action",["Christian Bale"],"2h");
-let movie6 = new Movie("The Dark Knight Rises","13.2.2007","Action",["Christian Bale"],"2h");
-let movieArray = [movie1,movie2,movie3,movie4,movie5,movie6];
+let movie1 = new Movie("Batman", "13.2.1999", "Action", ["Christian Bale", "Liam Neeson"], "2h");
+let movie2 = new Movie("The Dark Knight", "13.2.2002", "Action", ["Christian Bale", "Heath Ledger"], "2h");
+let movie3 = new Movie("The Dark Knight Rises", "13.2.2007", "Action", ["Christian Bale"], "2h");
+let movie4 = new Movie("The Dark Knight Rises", "13.2.2007", "Action", ["Christian Bale"], "2h");
+let movie5 = new Movie("The Dark Knight Rises", "13.2.2007", "Action", ["Christian Bale"], "2h");
+let movie6 = new Movie("The Dark Knight Rises", "13.2.2007", "Action", ["Christian Bale"], "2h");
+let movieArray = [movie1, movie2, movie3, movie4, movie5, movie6];
 let allMovies = new MovieCollection();
 listAllMovies();
 
+function addMovie() {
+
+}
+
+function closeModalWindow(){
+    modal.style.display="none";
+}
+
 //Listes all the movies that are created
-function listAllMovies(){
-    for(let i = 0; i < movieArray.length; i++){
+function listAllMovies() {
+    for (let i = 0; i < movieArray.length; i++) {
         allMovies.addMovie(movieArray[i]);
         let movieElement = document.createElement("li");
-        movieElement.setAttribute("class","listItem") 
+        movieElement.setAttribute("class", "listItem")
         let paragraph = document.createElement("p");
-        paragraph.textContent=movieArray[i].getName();
-        paragraph.setAttribute("style","color:white;");
+        paragraph.textContent = movieArray[i].getName();
+        paragraph.setAttribute("style", "color:white;");
         list.appendChild(movieElement);
         movieElement.appendChild(paragraph);
+        movieElement.addEventListener("click", function () {
+            showInfo(movieArray[i]);
+        }, false);
     }
 }
-//Clears the list of movies
-function clearMovieList(){
-    console.log("got here");
-    let div = document.getElementById("movieList");
-    //div.removeChild(div.lastElementChild);
-    div.innerHTML="";
-    let list = document.createElement("ul");
-    list.setAttribute("id","movieList");
-    div.appendChild(list);
+
+function showInfo(movie) {
+    modal.style.display="block";
+    let header = document.createElement("h3");
+    header.textContent=movie.getName();
+    let p = document.createElement("p");
+    p.textContent = `${movie.length} | ${movie.genre} | ${movie.releaseDate}`;
+    modalContent.appendChild(header);
+    modalContent.appendChild(p);
+    console.log(movie);
+    
 }
 
+//Clears the list of movies
+function clearMovieList() {
+    console.log("got here");
+    let div = document.getElementById("movieList");
+    div.innerHTML = "";
+}
 
-function searchMovie(e){
+//Search for a movie that contains the given search text
+function searchMovie(e) {
     clearMovieList();
     console.log(e.target.value);
-    let helper = allMovies.movies.filter(movie => movie.getName().includes(e.target.value));
-    for(let i = 0 ; i < helper.length; i++){
+    let helper = allMovies.movies.filter(movie => {
+        let movieName = movie.getName();
+        let searchName = e.target.value;
+        return String(movieName).toUpperCase().includes(String(searchName.toUpperCase()));
+    })
+    for (let i = 0; i < helper.length; i++) {
         let movieElement = document.createElement("li");
-        movieElement.setAttribute("class","listItem") 
+        movieElement.setAttribute("class", "listItem")
         let paragraph = document.createElement("p");
-        paragraph.textContent=helper[i].getName();
-        paragraph.setAttribute("style","color:white;");
+        paragraph.textContent = helper[i].getName();
+        paragraph.setAttribute("style", "color:white;");
         list.appendChild(movieElement);
-        movieElement.appendChild(paragraph);   
+        movieElement.appendChild(paragraph);
     }
 }
 

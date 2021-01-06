@@ -4,8 +4,35 @@ body{
 #container{
     background-color:white;    
     height:1000px;
-    border-top:45px solid rgb(255, 196, 0);
+    
     border-bottom:45px solid rgb(255, 196, 0);
+}
+#topBar{
+    border-top:45px solid rgb(255, 196, 0);
+}
+.closeButton{
+    color: black;
+    float:right;
+    font-size:30px;
+    padding:10px;
+}
+#modal{
+    display: none;
+    position: fixed;
+    z-index:1;
+    height:100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.2);
+}
+
+#modal-content{
+    background-color: #f4f4f4;
+    margin:10% 25%;
+    padding:5% 0%;
+    width: 50%;
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
+
 }
 
 #centerDiv{
@@ -43,12 +70,21 @@ border-radius: 10px;
     background-color: rgb(255, 196, 0);
     font-weight: bold;    
     border-radius: 10px;
+    
+}
+.buttonClass {
+    padding:1%;
+    background-color: rgb(255, 196, 0);
+    font-weight: bold;    
+    border-radius: 10px;
+    margin-left: 45%;
 }
 #movieListDiv{
     padding-top:5%;
 }
 #movieListDiv ul{
     column-count: 3;
+    padding-left:0%;
 }
 #movieListDiv li{
     margin-bottom:10px;
