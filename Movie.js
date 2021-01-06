@@ -5,8 +5,12 @@ export default class Movie {
         this.genre = genre;
         this.actors = actors;
         this.length = length;
+        this.description = "";
     }
     getName(){
         return this.name;
+    }
+    setDescription(text){
+        this.description=text;
     }
 }

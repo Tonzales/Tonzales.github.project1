@@ -5,14 +5,15 @@ let container = document.getElementById("container");
 let list = document.getElementById("movieList");
 const searchInput = document.getElementById("searchBar");
 searchInput.addEventListener("input", searchMovie);
-const addMovieButton = document.getElementsByName("addMovieButton");
-addMovieButton[0].addEventListener("click", addMovie);
+const addMovieButton = document.getElementsByName("addMovieButton")[0];
+addMovieButton.addEventListener("click", addMovie);
 const modal = document.getElementById("modal");
 const modalContent = document.getElementById("modal-content");
 const closeModalButton = document.getElementById("closeButton");
 closeModalButton.addEventListener("click",closeModalWindow);
 
 let movie1 = new Movie("Batman", "13.2.1999", "Action", ["Christian Bale", "Liam Neeson"], "2h");
+movie1.setDescription("awesome movie that started a great trilogy.");
 let movie2 = new Movie("The Dark Knight", "13.2.2002", "Action", ["Christian Bale", "Heath Ledger"], "2h");
 let movie3 = new Movie("The Dark Knight Rises", "13.2.2007", "Action", ["Christian Bale"], "2h");
 let movie4 = new Movie("The Dark Knight Rises", "13.2.2007", "Action", ["Christian Bale"], "2h");
@@ -23,11 +24,24 @@ let allMovies = new MovieCollection();
 listAllMovies();
 
 function addMovie() {
-
+ console.log("sup");
 }
 
+//listen outside clicks
+window.addEventListener("click",clickOutside);
+//Finish the clickoutside, it does not remove the inner html also you have to add the btn back :)
+function clickOutside(e){
+    if(e.target == modal){
+        let 
+        modalContent.innerHTML="";
+        modal.style.display="none";    
+    }
+}
+
+//Closes the modal
 function closeModalWindow(){
-    modal.style.display="none";
+        modalContent.innerHTML="";    
+        modal.style.display="none";    
 }
 
 //Listes all the movies that are created
@@ -46,15 +60,18 @@ function listAllMovies() {
         }, false);
     }
 }
-
+//Opens modal with a clicked movies information
 function showInfo(movie) {
     modal.style.display="block";
     let header = document.createElement("h3");
     header.textContent=movie.getName();
     let p = document.createElement("p");
+    let description = document.createElement("p");
+    description.textContent = `${movie.description}`;
     p.textContent = `${movie.length} | ${movie.genre} | ${movie.releaseDate}`;
     modalContent.appendChild(header);
     modalContent.appendChild(p);
+    modalContent.appendChild(description);
     console.log(movie);
     
 }
