@@ -6,11 +6,15 @@ export default class Movie {
         this.actors = actors;
         this.length = length;
         this.description = "";
+        this.image=null;
     }
     getName(){
         return this.name;
     }
     setDescription(text){
         this.description=text;
+    }
+    addImage(imageName){
+        this.image = "./movieCovers/"+imageName+".jpg";
     }
 }

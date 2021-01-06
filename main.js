@@ -14,8 +14,10 @@ closeModalButton.addEventListener("click",closeModalWindow);
 
 let movie1 = new Movie("Batman", "13.2.1999", "Action", ["Christian Bale", "Liam Neeson"], "2h");
 movie1.setDescription("awesome movie that started a great trilogy.");
+movie1.addImage("batmanBegins");
 let movie2 = new Movie("The Dark Knight", "13.2.2002", "Action", ["Christian Bale", "Heath Ledger"], "2h");
 let movie3 = new Movie("The Dark Knight Rises", "13.2.2007", "Action", ["Christian Bale"], "2h");
+movie3.addImage("darkKnightRises");
 let movie4 = new Movie("The Dark Knight Rises", "13.2.2007", "Action", ["Christian Bale"], "2h");
 let movie5 = new Movie("The Dark Knight Rises", "13.2.2007", "Action", ["Christian Bale"], "2h");
 let movie6 = new Movie("The Dark Knight Rises", "13.2.2007", "Action", ["Christian Bale"], "2h");
@@ -32,15 +34,16 @@ window.addEventListener("click",clickOutside);
 //Finish the clickoutside, it does not remove the inner html also you have to add the btn back :)
 function clickOutside(e){
     if(e.target == modal){
-        let 
         modalContent.innerHTML="";
+        modalContent.appendChild(closeModalButton);
         modal.style.display="none";    
     }
 }
 
 //Closes the modal
 function closeModalWindow(){
-        modalContent.innerHTML="";    
+        modalContent.innerHTML="";
+        modalContent.appendChild(closeModalButton);    
         modal.style.display="none";    
 }
 
@@ -63,12 +66,23 @@ function listAllMovies() {
 //Opens modal with a clicked movies information
 function showInfo(movie) {
     modal.style.display="block";
+    let img = document.createElement("img");    
+    if(movie.image == null){
+     img.src = "./movieCovers/notFound.png"   
+    }else{
+        img.src=movie.image;
+    }    
     let header = document.createElement("h3");
     header.textContent=movie.getName();
     let p = document.createElement("p");
     let description = document.createElement("p");
     description.textContent = `${movie.description}`;
     p.textContent = `${movie.length} | ${movie.genre} | ${movie.releaseDate}`;
+    modalContent.appendChild(img);
+    console.log(img.naturalHeight);
+    if(img.naturalHeight>400){
+        img.style.height="400px";
+    }
     modalContent.appendChild(header);
     modalContent.appendChild(p);
     modalContent.appendChild(description);
