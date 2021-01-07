@@ -1,20 +1,24 @@
-body{
+html, body{
     margin:0%;
+    height: 100%;
 }
 #container{
-    background-color:white;    
-    height:1000px;
+    background-color:rgb(80, 80, 80);    
     
-    border-bottom:45px solid rgb(255, 196, 0);
 }
-#topBar{
+.footer{
     border-top:45px solid rgb(255, 196, 0);
+    display: none;
 }
 .closeButton{
     color: black;
     float:right;
     font-size:30px;
     padding:10px;
+}
+.icons{
+    height: 45px; 
+    padding-right: 10px;   
 }
 #modal{
     display: none;
@@ -37,11 +41,12 @@ body{
 }
 
 #centerDiv{
-    background-color: rgb(80, 80, 80);
+    background-color: rgb(39, 39, 39);
     height:inherit;
-    width: 85%;
-    margin-left: 5%;
-    padding: 0% 2.5% 0% 2.5%;
+    width: 65%;
+    margin-left: 17.5%;
+    padding-top: 1%;
+    padding-bottom:2.5%;
 }
 h1 {
     margin-top:0%;
@@ -56,15 +61,17 @@ h2{
     font-size: 150%;
     color: rgb(255, 196, 0);
 }
+
+
 #searchBarDiv{
     padding-top:5%;
     text-align: center;
+    display: inline;
 }
 #searchBarDiv input{
 width: 70%;
 padding:1% 1% 1% 1%;
 border-radius: 10px;
-
 }
 #searchBarDiv button{    
     padding:1%;
@@ -73,27 +80,57 @@ border-radius: 10px;
     border-radius: 10px;
     
 }
+#orderByDiv{
+    width:25%;
+    float:left;
+    text-align: center;
+}
+#orderByDiv select{
+    padding:1% 5% 1% 5%;
+}
+
+#searhFieldDiv{
+    width: inherit;
+    padding-left: 25%;
+float:left;
+    display: flex;
+}
+.item{    
+    width:inherit;
+    height: inherit;
+    
+}
+.item input{
+    height:60%;
+    width: 100%;
+    padding:1% 1% 1% 1%;
+    border-radius: 10px;
+}
+
+
 .buttonClass {
     padding:1%;
     background-color: rgb(255, 196, 0);
     font-weight: bold;    
     border-radius: 10px;
-    margin-left: 45%;
+    margin-left: 47%;
 }
 #movieListDiv{
     padding-top:5%;
 }
 #movieListDiv ul{
-    column-count: 3;
-    padding-left:0%;
+    column-count: 3;    
+    width: 90%;    
 }
-#movieListDiv li{
-    margin-bottom:10px;
-}
+#movieListDiv li{    
+    margin-left: 20%;               
+} 
 .listItem {
-    
-    padding: 30px 15px ;
+    padding: 10px 5px ;
     text-align: center;
-    border: 5px solid rgb(255, 196, 0);
-    list-style-type: none;
+    /* border: 1px solid rgb(255, 196, 0); */
+    list-style-type: none;    
+}
+p {
+    margin:0%;
 }

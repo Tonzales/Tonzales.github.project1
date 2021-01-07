@@ -12,18 +12,29 @@ const modalContent = document.getElementById("modal-content");
 const closeModalButton = document.getElementById("closeButton");
 closeModalButton.addEventListener("click",closeModalWindow);
 
-let movie1 = new Movie("Batman", "13.2.1999", "Action", ["Christian Bale", "Liam Neeson"], "2h");
-movie1.setDescription("awesome movie that started a great trilogy.");
+let movie1 = new Movie("Batman Begins", "15.6.2005", "Action", ["Christian Bale", "Liam Neeson","Michael Caine"], "2h20min");
+movie1.setDescription("After training with his mentor, Batman begins his fight to free crime-ridden Gotham City from corruption.");
 movie1.addImage("batmanBegins");
-let movie2 = new Movie("The Dark Knight", "13.2.2002", "Action", ["Christian Bale", "Heath Ledger"], "2h");
-let movie3 = new Movie("The Dark Knight Rises", "13.2.2007", "Action", ["Christian Bale"], "2h");
+let movie2 = new Movie("The Dark Knight", "18.7.2008", "Action", ["Christian Bale", "Heath Ledger"], "2h32min");
+movie2.setDescription("When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.");
+movie2.addImage("darkKnight");
+let movie3 = new Movie("The Dark Knight Rises", "20.7.2012", "Action", ["Christian Bale","Tom Hardy"], "2h44min");
+movie3.setDescription("Eight years after the Joker's reign of anarchy, Batman, with the help of the enigmatic Catwoman, is forced from his exile to save Gotham City from the brutal guerrilla terrorist Bane.");
 movie3.addImage("darkKnightRises");
-let movie4 = new Movie("The Dark Knight Rises", "13.2.2007", "Action", ["Christian Bale"], "2h");
-let movie5 = new Movie("The Dark Knight Rises", "13.2.2007", "Action", ["Christian Bale"], "2h");
-let movie6 = new Movie("The Dark Knight Rises", "13.2.2007", "Action", ["Christian Bale"], "2h");
+let movie4 = new Movie("Tenet", "3.9.2020", "Action, Sci-Fi", ["Rober Pattinson","John Washington"], "2h30min");
+movie4.setDescription("Armed with only one word, Tenet, and fighting for the survival of the entire world, a Protagonist journeys through a twilight world of international espionage on a mission that will unfold in something beyond real time. ");
+movie4.addImage("tenet");
+let movie5 = new Movie("Inception", "16.6.2010", "Action, Adventure", ["Leonardo DiCaprio"], "2h28min");
+movie5.setDescription("A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.");
+movie5.addImage("inception");
+let movie6 = new Movie("Gladiator", "5.5.2000", "Action, Drama", ["Russell Crowe","Joaquin Phoenix"], "2h35min");
+movie6.setDescription("A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery. ");
+movie6.addImage("gladiator");
 let movieArray = [movie1, movie2, movie3, movie4, movie5, movie6];
 let allMovies = new MovieCollection();
-listAllMovies();
+addMoviesToDatabase(movieArray,allMovies);
+console.log(allMovies);
+listAllMovies(allMovies);
 
 function addMovie() {
  console.log("sup");
@@ -47,20 +58,34 @@ function closeModalWindow(){
         modal.style.display="none";    
 }
 
-//Listes all the movies that are created
-function listAllMovies() {
+function addMoviesToDatabase(movieArray, database){
     for (let i = 0; i < movieArray.length; i++) {
-        allMovies.addMovie(movieArray[i]);
+        database.addMovie(movieArray[i]);
+    }
+}
+
+//Listes all the movies that are created
+function listAllMovies(arrayOfMovies) {
+    for (let i = 0; i < arrayOfMovies.movies.length; i++) {
         let movieElement = document.createElement("li");
-        movieElement.setAttribute("class", "listItem")
+        movieElement.setAttribute("class", "listItem");
+        let img = document.createElement("img");
+        if(arrayOfMovies.movies[i].image == null){
+            img.src = "./movieCovers/notFound.png"   
+        }else{
+            img.src=arrayOfMovies.movies[i].image;
+        }
+        img.style.height="350px"; 
+        img.style.width="233px"; 
         let paragraph = document.createElement("p");
-        paragraph.textContent = movieArray[i].getName();
+        paragraph.textContent = arrayOfMovies.movies[i].getName();
         paragraph.setAttribute("style", "color:white;");
         list.appendChild(movieElement);
+        movieElement.appendChild(img);
         movieElement.appendChild(paragraph);
         movieElement.addEventListener("click", function () {
-            showInfo(movieArray[i]);
-        }, false);
+            showInfo(arrayOfMovies.movies[i]);
+        }, false);        
     }
 }
 //Opens modal with a clicked movies information
@@ -106,14 +131,8 @@ function searchMovie(e) {
         let searchName = e.target.value;
         return String(movieName).toUpperCase().includes(String(searchName.toUpperCase()));
     })
-    for (let i = 0; i < helper.length; i++) {
-        let movieElement = document.createElement("li");
-        movieElement.setAttribute("class", "listItem")
-        let paragraph = document.createElement("p");
-        paragraph.textContent = helper[i].getName();
-        paragraph.setAttribute("style", "color:white;");
-        list.appendChild(movieElement);
-        movieElement.appendChild(paragraph);
-    }
+    let filteredMovies = new MovieCollection();
+    addMoviesToDatabase(helper,filteredMovies);
+    listAllMovies(filteredMovies);
 }
 

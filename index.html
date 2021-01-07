@@ -15,14 +15,34 @@
                 
             </div>
         </div>
-        <div id="topBar"></div>
+        <div class="footer"></div>
 
         <div id="centerDiv">
             <div id="searchBarDiv">
                 <h1>Reeler</h1>
                 <h2>Search movie</h2>
-                <input type="text" name="searchBar" id="searchBar">                
             </div>
+
+            <div id="searhFieldDiv">
+                <div class="">
+                    <img src="./icons/cameraIcon.png" class="icons" alt="">
+                </div>
+                <div class="item">
+                    <input type="text" name="searchBar" id="searchBar">            
+                </div>
+                
+            </div>
+            <div id="orderByDiv">
+                <label for="ordering">Order by: 
+                    <select name="ordering" id="movieOrderSelect">
+                        <option value="Release date">Release Date</option>
+                        <option value="Name">Name</option>
+                    </select>
+                </label>
+
+            </div>
+
+
             <div id="movieListDiv">
                 <ul id="movieList">
 
@@ -30,7 +50,7 @@
             </div>
             <button name="addMovieButton" class="buttonClass">Add movie</button>
         </div>
-
+        <div class="footer"></div>
 
     </div>
     <script src="Movie.js" type="module"></script>
