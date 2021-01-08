@@ -9,7 +9,9 @@ const addMovieButton = document.getElementsByName("addMovieButton")[0];
 addMovieButton.addEventListener("click", addMovie);
 const modal = document.getElementById("modal");
 const modalContent = document.getElementById("modal-content");
-const closeModalButton = document.getElementById("closeButton");
+const closeModalButton = document.createElement("button");
+closeModalButton.setAttribute("id","closeButton");
+closeModalButton.textContent="close movie preview"
 closeModalButton.addEventListener("click",closeModalWindow);
 
 let movie1 = new Movie("Batman Begins", "15.6.2005", "Action", ["Christian Bale", "Liam Neeson","Michael Caine"], "2h20min");
@@ -37,7 +39,27 @@ console.log(allMovies);
 listAllMovies(allMovies);
 
 function addMovie() {
- console.log("sup");
+    modal.style.display="block";
+    let form = document.createElement("form");
+    let fields = ["name", "genre","actors","length","release date"];
+    for(let i = 0; i < fields.length; i++){
+        let label = document.createElement("label");
+        let inputField = document.createElement("input")
+        inputField.setAttribute("type","text");
+        inputField.setAttribute("id",fields[i]);
+        label.textContent=fields[i];
+        label.setAttribute("for",fields[i]);
+        form.appendChild(label);
+        form.appendChild(inputField);
+    }
+    let addBtn = document.createElement("button");
+    addBtn.textContent ="Add movie";
+    let cancelBtn = document.createElement("button");
+    cancelBtn.textContent="Cancel";
+    modalContent.appendChild(form);
+    modalContent.appendChild(addBtn);
+    modalContent.appendChild(cancelBtn);
+
 }
 
 //listen outside clicks
@@ -75,12 +97,13 @@ function listAllMovies(arrayOfMovies) {
         }else{
             img.src=arrayOfMovies.movies[i].image;
         }
-        img.style.height="350px"; 
-        img.style.width="233px"; 
+        img.style.width = window.screen.width/12+"px";
+        img.style.height = window.screen.height/4 +"px";
+        //img.style.width="233px"; 
         let paragraph = document.createElement("p");
         paragraph.textContent = arrayOfMovies.movies[i].getName();
         paragraph.setAttribute("style", "color:white;");
-        list.appendChild(movieElement);
+        list.appendChild(movieElement);        
         movieElement.appendChild(img);
         movieElement.appendChild(paragraph);
         movieElement.addEventListener("click", function () {
@@ -108,11 +131,13 @@ function showInfo(movie) {
     if(img.naturalHeight>400){
         img.style.height="400px";
     }
-    modalContent.appendChild(header);
-    modalContent.appendChild(p);
-    modalContent.appendChild(description);
-    console.log(movie);
-    
+    let modalTextDiv = document.createElement("div");
+    modalTextDiv.setAttribute("id","modalTextDiv");
+    modalTextDiv.appendChild(header);
+    modalTextDiv.appendChild(p);
+    modalTextDiv.appendChild(description);
+    modalContent.appendChild(modalTextDiv);
+    modalContent.appendChild(closeModalButton);    
 }
 
 //Clears the list of movies
