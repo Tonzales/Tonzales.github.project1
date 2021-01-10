@@ -13,6 +13,8 @@ const closeModalButton = document.createElement("button");
 closeModalButton.setAttribute("id","closeButton");
 closeModalButton.textContent="close movie preview"
 closeModalButton.addEventListener("click",closeModalWindow);
+const orderSelect = document.getElementById("movieOrderSelect");
+orderSelect.addEventListener("input",orderByValue);
 
 let movie1 = new Movie("Batman Begins", "15.6.2005", "Action", ["Christian Bale", "Liam Neeson","Michael Caine"], "2h20min");
 movie1.setDescription("After training with his mentor, Batman begins his fight to free crime-ridden Gotham City from corruption.");
@@ -39,32 +41,97 @@ console.log(allMovies);
 listAllMovies(allMovies);
 
 function addMovie() {
+    let closeBtn =document.getElementById("closeButton");
+    if (closeBtn!= null){
+        modalContent.removeChild(closeBtn);
+    }
     modal.style.display="block";
     let form = document.createElement("form");
-    let fields = ["name", "genre","actors","length","release date"];
+    let fields = ["Name", "Genre","Actors","Length","Release date"];
     for(let i = 0; i < fields.length; i++){
         let label = document.createElement("label");
         let inputField = document.createElement("input")
         inputField.setAttribute("type","text");
         inputField.setAttribute("id",fields[i]);
+        // inputField.setAttribute("required","true");
         label.textContent=fields[i];
         label.setAttribute("for",fields[i]);
         form.appendChild(label);
         form.appendChild(inputField);
+        if(fields[i] == "Actors"){                 
+            let inputField2 = document.createElement("input");       
+            inputField2.setAttribute("type","text");
+            inputField2.setAttribute("id","actor2");            
+            form.appendChild(inputField2);
+        }
     }
     let addBtn = document.createElement("button");
     addBtn.textContent ="Add movie";
+    addBtn.addEventListener("click",addMoviefromForm);
     let cancelBtn = document.createElement("button");
     cancelBtn.textContent="Cancel";
+    cancelBtn.addEventListener("click",closeModalWindow);
     modalContent.appendChild(form);
-    modalContent.appendChild(addBtn);
-    modalContent.appendChild(cancelBtn);
+    form.appendChild(addBtn);
+    form.appendChild(cancelBtn);
+
+}
+
+function addMoviefromForm(e){
+    e.preventDefault();
+    let name = document.getElementById("Name").value;
+    let genre = document.getElementById("Genre").value;
+    let actor1 = document.getElementById("Actors").value;
+    let actor2 = document.getElementById("actor2").value;
+    let length = document.getElementById("Length").value;
+    let date = document.getElementById("Release date").value;
+    let values = [name,genre,actor1,actor2,length,date];
+    if(genre ==""){ genre = "Genre is unknown";}
+    if(length==""){ length = "Movie length is unknown";}
+    if(date==""){ date = "Release date is unknown";}
+    let movie = new Movie(name,date,genre,[actor1,actor2],length);    
+    movie.setDescription("");
+    allMovies.addMovie(movie);
+    clearMovieList();
+    listAllMovies(allMovies);
+    closeModalWindow();
+}
+
+function orderByValue(e){    
+    switch (e.target.value){
+        case "Name":            
+            allMovies.movies.sort(function(a,b){
+                let nameA = a.name.trim().toUpperCase();
+                let nameB = b.name.trim().toUpperCase();
+                if (nameA < nameB) { return -1; }
+                if (nameA > nameB) { return 1; }
+                return 0;
+            })
+            clearMovieList();
+            listAllMovies(allMovies);
+            break;
+        case "Release date":
+            allMovies.movies.sort(function(a,b){
+                let A = a.releaseDate.split('.');
+                let B = b.releaseDate.split('.');
+                let yearA = A[A.length-1];
+                let yearB = B[B.length-1];
+                if (yearA < yearB) { return 1; }
+                if (yearA > yearB) { return -1; }
+                return 0;
+            })
+            clearMovieList();
+            listAllMovies(allMovies);
+            break;
+        default:
+            console.log("shouldn't get here");
+    }
 
 }
 
 //listen outside clicks
 window.addEventListener("click",clickOutside);
-//Finish the clickoutside, it does not remove the inner html also you have to add the btn back :)
+
 function clickOutside(e){
     if(e.target == modal){
         modalContent.innerHTML="";
@@ -98,8 +165,7 @@ function listAllMovies(arrayOfMovies) {
             img.src=arrayOfMovies.movies[i].image;
         }
         img.style.width = window.screen.width/12+"px";
-        img.style.height = window.screen.height/4 +"px";
-        //img.style.width="233px"; 
+        img.style.height = window.screen.height/4 +"px";        
         let paragraph = document.createElement("p");
         paragraph.textContent = arrayOfMovies.movies[i].getName();
         paragraph.setAttribute("style", "color:white;");
@@ -124,10 +190,14 @@ function showInfo(movie) {
     header.textContent=movie.getName();
     let p = document.createElement("p");
     let description = document.createElement("p");
-    description.textContent = `${movie.description}`;
+    if(movie.description==""){
+        description.textContent = "This movie has no description";
+    } else{
+        description.textContent = `${movie.description}`;
+    }
+    
     p.textContent = `${movie.length} | ${movie.genre} | ${movie.releaseDate}`;
-    modalContent.appendChild(img);
-    console.log(img.naturalHeight);
+    modalContent.appendChild(img);    
     if(img.naturalHeight>400){
         img.style.height="400px";
     }
@@ -141,16 +211,14 @@ function showInfo(movie) {
 }
 
 //Clears the list of movies
-function clearMovieList() {
-    console.log("got here");
+function clearMovieList() {    
     let div = document.getElementById("movieList");
     div.innerHTML = "";
 }
 
 //Search for a movie that contains the given search text
 function searchMovie(e) {
-    clearMovieList();
-    console.log(e.target.value);
+    clearMovieList();    
     let helper = allMovies.movies.filter(movie => {
         let movieName = movie.getName();
         let searchName = e.target.value;

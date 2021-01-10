@@ -4,6 +4,7 @@ html, body{
 }
 #container{
     background-color:rgb(80, 80, 80);    
+    min-height: inherit;
     
 }
 .footer{
@@ -41,7 +42,7 @@ html, body{
     border:3px solid rgb(255,196,0);
 }
 #modal-content button{
-    margin-top:5%;
+    margin:5% 1% 0% 0%;
     padding: 2% 2%;
     font-size: 90%;
     font-weight: bold;
@@ -54,21 +55,31 @@ html, body{
     margin:0% 2% 0% 2%;
     padding:0% 0% 2% 0%;
 }
-form{
-    display: block;
+form label{
+margin-left: 10%;;
+color:rgb(255,196,0);
+float:left;
+font-size: 115%;
+}
+form input{
+    width:80%;
+    margin: 1% 10%;
+    padding:1% 1% 1% 1%;
+    border-radius: 6px;
+    display: inline-block;
     box-sizing: border-box;
 }
 
 #centerDiv{
     background-color: rgb(39, 39, 39);
-    height:inherit;
+    min-height:938px;    
     width: 65%;
     margin-left: 17.5%;
-    padding-top: 1%;
-    padding-bottom:2.5%;
+    /* padding-top: 1%; */
+    /* padding-bottom:2.5%; */
 }
 h1 {
-    margin-top:0%;
+    margin:0% 0% 1.5% 0%;
     text-align: center;
     font-size:300%;
     color: rgb(255, 196, 0);
@@ -76,6 +87,7 @@ h1 {
     font-family:fantasy;
 }
 h2{
+    margin:0% 0% 1% 0%;
     text-align: center;
     font-size: 150%;
     color: rgb(255, 196, 0);
@@ -151,7 +163,7 @@ border-radius: 10px;
 #movieListDiv ul{
     column-count: 3;    
     width: 90%;
-    padding-left: 5%;    
+    padding-left: 5%;        
 }
 #movieListDiv li{    
     /* margin-left: 20%;                */
@@ -160,7 +172,8 @@ border-radius: 10px;
     padding: 10px 5px ;
     text-align: center;
     /* border: 1px solid rgb(255, 196, 0); */
-    list-style-type: none;    
+    list-style-type: none;  
+    page-break-inside: avoid;  
 }
 p {
     margin:0%;
